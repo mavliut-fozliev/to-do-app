@@ -24,11 +24,15 @@ const HomePage: React.FC = () => {
     setTasks(updatedTasks);
   };
 
+  const toggleTask = (id: string) => {
+    setTasks((prevTasks) => prevTasks.map((task) => (task.id === id ? { ...task, isCompleted: !task.isCompleted } : task)));
+  };
+
   return (
     <div className={styles["box"]}>
       <TodoTitle />
       <AddTaskForm onAddTask={addTask} />
-      <TaskList tasks={tasks} deleteTask={deleteTask} />
+      <TaskList tasks={tasks} deleteTask={deleteTask} toggleTask={toggleTask} />
     </div>
   );
 };
