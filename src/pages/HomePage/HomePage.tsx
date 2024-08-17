@@ -3,7 +3,7 @@ import AddTaskForm from "../../components/AddTaskForm/AddTaskForm";
 import TodoTitle from "../../components/TodoTitle/TodoTitle";
 import styles from "./HomePage.module.scss";
 
-const HomePage = () => {
+const HomePage: React.FC = () => {
   const [tasks, setTasks] = useState<string[]>([]);
 
   const addTask = (taskContent: string) => {
