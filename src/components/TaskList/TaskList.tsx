@@ -5,9 +5,10 @@ import CloseIcon from "@mui/icons-material/Close";
 
 interface TaskListProps {
   tasks: Task[];
+  deleteTask: (id: string) => void;
 }
 
-const TaskList: React.FC<TaskListProps> = ({ tasks }) => {
+const TaskList: React.FC<TaskListProps> = ({ tasks, deleteTask }) => {
   return (
     <List>
       {tasks.map((task, index) => (
@@ -18,7 +19,7 @@ const TaskList: React.FC<TaskListProps> = ({ tasks }) => {
               {task.content}
             </Typography>
           </div>
-          <IconButton>
+          <IconButton onClick={() => deleteTask(task.id)}>
             <CloseIcon />
           </IconButton>
         </ListItem>

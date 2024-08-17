@@ -19,11 +19,16 @@ const HomePage: React.FC = () => {
     setTasks([...tasks, newTask]);
   };
 
+  const deleteTask = (id: string) => {
+    const updatedTasks = tasks.filter((task) => task.id !== id);
+    setTasks(updatedTasks);
+  };
+
   return (
     <div className={styles["box"]}>
       <TodoTitle />
       <AddTaskForm onAddTask={addTask} />
-      <TaskList tasks={tasks} />
+      <TaskList tasks={tasks} deleteTask={deleteTask} />
     </div>
   );
 };
