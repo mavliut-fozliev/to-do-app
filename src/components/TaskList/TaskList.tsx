@@ -12,7 +12,7 @@ interface TaskListProps {
 
 const TaskList: React.FC<TaskListProps> = ({ tasks, deleteTask, toggleTask }) => {
   return (
-    <List>
+    <List sx={{ overflowY: "auto" }}>
       {tasks.map((task, index) => (
         <ListItem key={index.toString()} sx={{ py: 0, justifyContent: "space-between" }}>
           <div className={styles["list-item-content"]}>
