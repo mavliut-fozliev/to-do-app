@@ -11,7 +11,7 @@ interface TaskFilterControlsProps {
 
 const TaskFilterControls: React.FC<TaskFilterControlsProps> = ({ currentFilter, onFilterChange, onClearCompleted }) => {
   const getFilterButton = (filter: TaskFilter) => (
-    <Button onClick={() => onFilterChange(filter)} color={currentFilter === filter ? "primary" : "inherit"}>
+    <Button key={filter} onClick={() => onFilterChange(filter)} color={currentFilter === filter ? "primary" : "inherit"}>
       {filter}
     </Button>
   );
