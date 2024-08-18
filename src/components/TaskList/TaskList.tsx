@@ -19,7 +19,7 @@ const TaskList: React.FC<TaskListProps> = ({ tasks, deleteTask, toggleTask }) =>
             <Checkbox checked={task.isCompleted} onClick={() => toggleTask(task.id)} />
             <Typography style={{ textDecoration: task.isCompleted ? "line-through" : "none" }}>{task.content}</Typography>
           </div>
-          <IconButton onClick={() => deleteTask(task.id)} size="small">
+          <IconButton onClick={() => deleteTask(task.id)} size="small" role="delete">
             <CloseIcon fontSize="small" />
           </IconButton>
         </ListItem>
