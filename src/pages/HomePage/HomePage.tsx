@@ -7,7 +7,7 @@ import styles from "./HomePage.module.scss";
 import { Task, TaskFilter } from "../../types";
 import { v4 as uuidv4 } from "uuid";
 
-const LOCAL_STORAGE_KEY = "tasks";
+export const LOCAL_STORAGE_KEY = "tasks";
 
 const getInitialTasks = (): Task[] => {
   const storedTasks = localStorage.getItem(LOCAL_STORAGE_KEY);
