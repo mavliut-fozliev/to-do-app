@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import AddTaskForm from "../../components/AddTaskForm/AddTaskForm";
 import TodoTitle from "../../components/TodoTitle/TodoTitle";
-import styles from "./HomePage.module.scss";
 import TaskList from "../../components/TaskList/TaskList";
-import { Task } from "../../types";
+import TaskFilterControls from "../../components/TaskFilterControls/TaskFilterControls";
+import styles from "./HomePage.module.scss";
+import { Task, TaskFilter } from "../../types";
 import { v4 as uuidv4 } from "uuid";
 
 const HomePage: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [filter, setFilter] = useState<TaskFilter>(TaskFilter.All);
 
   const addTask = (taskContent: string) => {
     const newTask: Task = {
@@ -16,23 +18,37 @@ const HomePage: React.FC = () => {
       isCompleted: false,
     };
 
-    setTasks([...tasks, newTask]);
+    setTasks((prevTasks) => [...prevTasks, newTask]);
   };
 
   const deleteTask = (id: string) => {
-    const updatedTasks = tasks.filter((task) => task.id !== id);
-    setTasks(updatedTasks);
+    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
   };
 
   const toggleTask = (id: string) => {
     setTasks((prevTasks) => prevTasks.map((task) => (task.id === id ? { ...task, isCompleted: !task.isCompleted } : task)));
   };
 
+  const handleFilterChange = (newFilter: TaskFilter) => {
+    setFilter(newFilter);
+  };
+
+  const handleClearCompleted = () => {
+    setTasks((prevTasks) => prevTasks.filter((task) => !task.isCompleted));
+  };
+
+  const filteredTasks = tasks.filter((task) => {
+    if (filter === TaskFilter.Completed) return task.isCompleted;
+    if (filter === TaskFilter.Active) return !task.isCompleted;
+    return true;
+  });
+
   return (
     <div className={styles["box"]}>
       <TodoTitle />
       <AddTaskForm onAddTask={addTask} />
-      <TaskList tasks={tasks} deleteTask={deleteTask} toggleTask={toggleTask} />
+      <TaskFilterControls currentFilter={filter} onFilterChange={handleFilterChange} onClearCompleted={handleClearCompleted} />
+      <TaskList tasks={filteredTasks} deleteTask={deleteTask} toggleTask={toggleTask} />
     </div>
   );
 };
