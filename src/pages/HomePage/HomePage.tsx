@@ -68,10 +68,12 @@ const HomePage: React.FC = () => {
 
   return (
     <div className={styles["box"]}>
-      <TodoTitle />
-      <AddTaskForm onAddTask={addTask} />
-      <TaskFilterControls currentFilter={filter} onFilterChange={handleFilterChange} onClearCompleted={handleClearCompleted} />
-      <TaskList tasks={filteredTasks} deleteTask={deleteTask} toggleTask={toggleTask} />
+      <div className={styles["content"]}>
+        <TodoTitle />
+        <AddTaskForm onAddTask={addTask} />
+        <TaskFilterControls currentFilter={filter} onFilterChange={handleFilterChange} onClearCompleted={handleClearCompleted} />
+        <TaskList tasks={filteredTasks} deleteTask={deleteTask} toggleTask={toggleTask} />
+      </div>
     </div>
   );
 };
