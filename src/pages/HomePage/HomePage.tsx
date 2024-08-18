@@ -9,21 +9,22 @@ import { v4 as uuidv4 } from "uuid";
 
 const LOCAL_STORAGE_KEY = "tasks";
 
+const getInitialTasks = (): Task[] => {
+  const storedTasks = localStorage.getItem(LOCAL_STORAGE_KEY);
+  if (!storedTasks) return [];
+
+  try {
+    const parsedTasks: Task[] = JSON.parse(storedTasks);
+    if (Array.isArray(parsedTasks)) return parsedTasks;
+  } catch (error) {
+    console.error("Failed to parse tasks from localStorage:", error);
+  }
+  return [];
+};
+
 const HomePage: React.FC = () => {
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const [tasks, setTasks] = useState<Task[]>(getInitialTasks);
   const [filter, setFilter] = useState<TaskFilter>(TaskFilter.All);
-
-  useEffect(() => {
-    const storedTasks = localStorage.getItem(LOCAL_STORAGE_KEY);
-    if (!storedTasks) return;
-
-    try {
-      const parsedTasks: Task[] = JSON.parse(storedTasks);
-      if (Array.isArray(parsedTasks)) setTasks(parsedTasks);
-    } catch (error) {
-      console.error("Failed to parse tasks from localStorage:", error);
-    }
-  }, []);
 
   useEffect(() => {
     try {
