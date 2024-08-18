@@ -6,6 +6,6 @@ export type Task = {
 
 export enum TaskFilter {
   All = "all",
-  Completed = "completed",
   Active = "active",
+  Completed = "completed",
 }
